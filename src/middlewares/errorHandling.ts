@@ -1,4 +1,4 @@
-import { appError } from '@/utils/appError'
+import { appError } from '@/utils/AppError'
 import { ErrorRequestHandler } from 'express'
 import { ZodError } from 'zod'
 
