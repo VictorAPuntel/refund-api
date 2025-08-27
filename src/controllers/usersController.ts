@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { z } from 'zod'
 import { UserRole } from '@prisma/client'
 import { prisma } from '@/database/prisma'
-import { appError } from '@/utils/AppError'
+import { AppError } from '@/utils/AppError'
 import { hash } from 'bcrypt'
 
 class UsersController {
@@ -27,7 +27,7 @@ class UsersController {
     const userWithSameEmail = await prisma.user.findFirst({ where: { email } })
 
     if (userWithSameEmail) {
-      throw new appError('Already exists a user with this email')
+      throw new AppError('Already exists a user with this email')
     }
 
     const hashedPassword = await hash(password, 8)

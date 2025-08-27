@@ -1,4 +1,4 @@
-import { appError } from '@/utils/AppError'
+import { AppError } from '@/utils/AppError'
 import { ErrorRequestHandler } from 'express'
 import { ZodError } from 'zod'
 
@@ -8,7 +8,7 @@ export const errorHandling: ErrorRequestHandler = (
   response,
   next
 ) => {
-  if (error instanceof appError) {
+  if (error instanceof AppError) {
     response.status(error.statusCode).json({ message: error.message })
     return
   }

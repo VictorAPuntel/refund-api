@@ -1,4 +1,4 @@
-import { appError } from '@/utils/AppError'
+import { AppError } from '@/utils/AppError'
 import { Request, Response } from 'express'
 import { authConfig } from '@/configs/auth'
 import { prisma } from '@/database/prisma'
@@ -18,13 +18,13 @@ class SessionsController {
     const user = await prisma.user.findFirst({ where: { email } })
 
     if (!user) {
-      throw new appError('Email or password is invalid', 401)
+      throw new AppError('Email or password is invalid', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw new appError('Email or password is invalid', 401)
+      throw new AppError('Email or password is invalid', 401)
     }
 
     const { secret, expiresIn } = authConfig.jwt
