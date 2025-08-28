@@ -11,6 +11,27 @@ const CategoriesEnum = z.enum([
   'accommodation',
 ])
 class RefundsController {
+  async index(request: Request, response: Response) {
+    const queryschema = z.object({
+      name: z.string().optional().default(''),
+    })
+
+    const { name } = queryschema.parse(request.query)
+
+    const refunds = await prisma.refunds.findMany({
+      where: {
+        user: {
+          name: {
+            contains: name.trim(),
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+      include: { user: true },
+    })
+
+    response.json(refunds)
+  }
   async create(request: Request, response: Response) {
     const bodySchema = z.object({
       name: z
@@ -40,8 +61,6 @@ class RefundsController {
 
     response.status(201).json(refund)
   }
-
-  async index(request: Request, response: Response) {}
 }
 
 export { RefundsController }
