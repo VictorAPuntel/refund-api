@@ -10,5 +10,10 @@ refoundsRoutes.post(
   verifyUserAuthorization(['employee']),
   refundsController.create
 )
+refoundsRoutes.get(
+  '/',
+  verifyUserAuthorization(['manager']),
+  refundsController.index
+)
 
 export { refoundsRoutes }
