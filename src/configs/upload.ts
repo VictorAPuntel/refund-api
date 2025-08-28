@@ -5,7 +5,8 @@ import crypto from 'node:crypto'
 const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp')
 const UPLOADS_FOLDER = path.relative(TMP_FOLDER, 'uploads')
 
-const MAX_FILE_SIZE = 1024 * 1024 * 3 //3MB
+const MAX_SIZE = 3 //3mb
+const MAX_FILE_SIZE = 1024 * 1024 * MAX_SIZE //3MB
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png']
 
 const MULTER = {
@@ -19,10 +20,11 @@ const MULTER = {
   }),
 }
 
-export {
+export default {
   TMP_FOLDER,
   UPLOADS_FOLDER,
   MULTER,
+  MAX_SIZE,
   MAX_FILE_SIZE,
   ACCEPTED_IMAGE_TYPES,
 }
